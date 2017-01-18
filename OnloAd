@@ -1,0 +1,17 @@
+#!/bin/sh
+
+wget -O ~/malware_hosts.txt
+	http://www.malwaredomainlist.com/hostslist/hosts.txt
+	
+wget -O ~/ad_hosts.txt
+	http://www.winhelp2002.mvps.org/hosts.txt
+	
+cp -f /tmp/hosts /tmp/hosts.bkp.
+
+cat ~/malware_hosts.txt > /tmp/hosts
+cat ~/ad_hosts.txt >> /tmp/hosts
+
+rm -f ~/malware_hosts.txt
+rm -f ~/ad_hosts.txt
+killall dnsmasq
+dnsmasq --conf-file=/tmp/dnsmasq.conf
